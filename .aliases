@@ -1,0 +1,15 @@
+# ls	-X: sort by type	
+#		-F: append file type
+#		-l: use a long listing format
+alias ls='ls -XF --group-directories-first --color=auto'
+alias l='ls -lFX --group-directories-first --color=auto'
+alias ll='ls -laX --group-directories-first --color=auto'
+alias c='clear'
+alias cp='cp -i'	# confirm before overwriting something
+alias hist='subl /home/$USER/.zsh_history || /root/.zsh_history'
+alias grep='grep --color=always'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# git
+alias gs='git status'
