@@ -10,23 +10,24 @@ runtime macros/matchit.vim
 " Pick a leader key
 let mapleader = ","
 
-set autoindent                 " Minimal automatic indenting for any filetype.
-set backspace=indent,eol,start " Proper backspace behavior.
-set hidden                     " Possibility to have more than one unsaved buffers.
-set incsearch                  " Incremental search, hit `<CR>` to stop.
-set ruler                      " Shows the current line number at the bottom-right of the screen.
-set wildmenu                   " Great command-line completion, use `<Tab>` to move around and `<CR>` to validate.
+set autoindent                  " Minimal automatic indenting for any filetype.
+set backspace=indent,eol,start  " Proper backspace behavior.
+set hidden                      " Possibility to have more than one unsaved buffers.
+set incsearch                   " Incremental search, hit `<CR>` to stop.
+set ruler                       " Shows the current line number at the bottom-right of the screen.
+set wildmenu                    " Great command-line completion, use `<Tab>` to move around and `<CR>` to validate.
 set number
 set number relativenumber
 set showmode
 set showcmd
 set hlsearch
-set nowrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
+set nowrap                      " Dont wrap lines
+set linebreak                   " Wrap lines at convenient points
 set autoread
 set mouse=a
+set history=1000                " Store lots of :cmdline history
 
-" attempt to fix tabs vs spaces
+" attempt to convert tabs to spaces
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -37,8 +38,9 @@ set cmdheight=2
 set encoding=utf-8
 
 " color theme
+" colorscheme darcula
 colorscheme monokai
-
+ 
 " transparent BG
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -59,3 +61,4 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <F5> :edit!<LF>		" binds F5 to :edit! which force reloads the file w/out asking to save changes
 vnoremap <C-c> "+y
 map <C-v> "+p
+
