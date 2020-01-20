@@ -81,12 +81,13 @@ set statusline +=%6*%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline +=%8*%{(mode()=='r')?'\ \ RPLACE\ ':''}
 set statusline +=%7*%{(mode()=='v')?'\ \ VISUAL\ ':''}
 set statusline +=%*\ %n\ %*                         " buffer number
-set statusline +=%*\ %<%.30F%*                      " short path, trunc to 30 length
+set statusline +=%*\ %<%.30F%*                      " path, trunc to 30 length
 set statusline +=%*%m%*                             " modified flag
-set statusline +=%=(%{strlen(&ft)?&ft:'none'},      " filetype
+set statusline +=%=                                 " right align
+set statusline +=(%{strlen(&ft)?&ft:'none'},        " filetype
 set statusline +=%{strlen(&fenc)?&fenc:&enc},       " encoding
 set statusline +=%{&fileformat})                    " file format
-set statusline +=%*%=%5l%*                          " current line
+set statusline +=%*%5l%*                            " current line
 set statusline +=%*/%L%*                            " total lines
 set statusline +=%*%4v\ %*                          " virtual column number
 set statusline +=%*0x%04B\ %*                       " character under cursor
@@ -109,6 +110,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <F5> :edit!<LF>                    " binds F5 to :edit! which force reloads the file w/out asking to save changes
 vnoremap <C-c> "+y
 nnoremap <C-v> "+p
+nnoremap <C-d> yyp
 
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q!<CR>
