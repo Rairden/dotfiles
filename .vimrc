@@ -26,13 +26,16 @@ set linebreak                   " Wrap lines at convenient points
 set autoread
 set mouse=a
 set history=1000                " Store lots of :cmdline history
-set nofixendofline              " disable adding a newline at EOF (unix standard)
+set nofixendofline              " Unix standard is to ensure a new line at EOF. Let's disable that.
 
 " attempt to convert tabs to spaces
 set tabstop=4
 set shiftwidth=4
 set expandtab                   " Turns tabs into spaces
-retab                           " This will affect the existing tab characters. expandtab only will not.
+
+" case-sensitive settings (maybe delete this; use default settings)
+set ignorecase                  " ignore case when searching...
+set smartcase                   " ...unless we type a capital
 
 " status bar
 set laststatus=2
@@ -40,31 +43,54 @@ set cmdheight=2
 set encoding=utf-8
 
 " color theme
-" colorscheme darcula
 colorscheme monokai
- 
+
+"set list
+nmap <F2> :set invlist<CR>
+imap <F2> <ESC>:set invlist<CR>a
+hi SpecialKey ctermbg=NONE ctermfg=NONE
+
+"set lcs+=space:·
+"set showbreak=↪\ 
+"set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set listchars=
+set listchars+=tab:→\ 
+set listchars+=nbsp:␣
+set listchars+=trail:•
+set listchars+=space:·
+set listchars+=eol:↲
+
 " transparent BG
 hi Normal guibg=NONE ctermbg=NONE
 hi NonText guibg=NONE ctermbg=NONE      " sets all empty lines (~) with transparent bg.
 
+" set the color for the current window vs non-current windows.
+hi StatusLine ctermfg=231 ctermbg=243
+hi StatusLineNC ctermfg=231 ctermbg=239
+
 " sets the statusline colors. These are groups for the below groups (%1, %2, etc)
-hi User1 ctermfg=231 ctermbg=241
-hi User2 ctermfg=231 ctermbg=241
-hi User3 ctermfg=231 ctermbg=241
-hi User4 ctermfg=231 ctermbg=241
-hi User5 ctermfg=231 ctermbg=241
+hi User1 ctermfg=231 ctermbg=243
+hi User6 ctermfg=231 ctermbg=160        " INSERT (red)
+hi User7 ctermfg=231 ctermbg=55         " VISUAL (purple)
+hi User8 ctermfg=231 ctermbg=208        " REPLACE (orange)
 
 " my status bar
 set statusline=
-set statusline +=%1*\ %n\ %*            " buffer number
-set statusline +=%5*%{&ff}%*            " file format
-set statusline +=%3*%y%*                " file type
-set statusline +=%4*\ %<%F%*            " full path
-set statusline +=%2*%m%*                " modified flag
-set statusline +=%1*%=%5l%*             " current line
-set statusline +=%2*/%L%*               " total lines
-set statusline +=%1*%4v\ %*             " virtual column number
-set statusline +=%2*0x%04B\ %*          " character under cursor
+set statusline +=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline +=%6*%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline +=%8*%{(mode()=='r')?'\ \ RPLACE\ ':''}
+set statusline +=%7*%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline +=%*\ %n\ %*                         " buffer number
+set statusline +=%*\ %<%.30F%*                      " short path, trunc to 30 length
+set statusline +=%*%m%*                             " modified flag
+set statusline +=%=(%{strlen(&ft)?&ft:'none'},      " filetype
+set statusline +=%{strlen(&fenc)?&fenc:&enc},       " encoding
+set statusline +=%{&fileformat})                    " file format
+set statusline +=%*%=%5l%*                          " current line
+set statusline +=%*/%L%*                            " total lines
+set statusline +=%*%4v\ %*                          " virtual column number
+set statusline +=%*0x%04B\ %*                       " character under cursor
+
 
 " this allows you to type ":Filter <search>" to search an entire file, and copy it to a new file
 " https://vim.fandom.com/wiki/Redirect_g_search_output
@@ -73,16 +99,25 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 " set F4 to toggle NERDTree
 nmap <F4> :NERDTreeToggle<CR>
 
-" Easier split navigations              So instead of ctrl-w then j, it’s just ctrl-j to move btwn windows
+" Easier split navigations (so instead of ctrl-w then j, it’s just ctrl-j to move btwn windows)
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Erik's custom hotkeys
-nnoremap <F5> :edit!<LF>                " binds F5 to :edit! which force reloads the file w/out asking to save changes
+nnoremap <F5> :edit!<LF>                    " binds F5 to :edit! which force reloads the file w/out asking to save changes
 vnoremap <C-c> "+y
-map <C-v> "+p
+nnoremap <C-v> "+p
+
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :q!<CR>
+nnoremap <C-w> :wq!<CR>
+
+nnoremap <Leader>s :w<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>w :wq!<CR>
+nnoremap <Leader><space> :nohlsearch<CR>    " turns off highlighting from search
 
 " this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \E character.
 " you can move lines/blocks up and down with alt-j/k.    https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
@@ -97,5 +132,4 @@ inoremap <M-j> <Esc>:m .+1<CR>==gi
 inoremap <M-k> <Esc>:m .-2<CR>==gi
 vnoremap <M-j> :m '>+1<CR>gv=gv
 vnoremap <M-k> :m '<-2<CR>gv=gv
-
 
