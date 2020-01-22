@@ -27,6 +27,7 @@ set autoread
 set mouse=a
 set history=1000                " Store lots of :cmdline history
 set nofixendofline              " Unix standard is to ensure a new line at EOF. Let's disable that.
+set splitbelow splitright       " reverse split order
 
 " attempt to convert tabs to spaces
 set tabstop=4
@@ -101,23 +102,24 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 nmap <F4> :NERDTreeToggle<CR>
 
 " Easier split navigations (so instead of ctrl-w then j, it’s just ctrl-j to move btwn windows)
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
 
 " Erik's custom hotkeys
 nnoremap <F5> :edit!<LF>                    " binds F5 to :edit! which force reloads the file w/out asking to save changes
-vnoremap <C-c> "+y
+vnoremap <C-c> "+y                          " copies from system X clipboard
 nnoremap <C-v> "+p
-nnoremap <C-d> yyp
+nnoremap <C-d> yyp                          " duplicates line
+nnoremap <C-y> dd                           " deletes line
 
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q!<CR>
 nnoremap <C-w> :wq!<CR>
 
 nnoremap <Leader>s :w<CR>
-nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>q :enew<CR>
 nnoremap <Leader>w :wq!<CR>
 nnoremap <Leader><space> :nohlsearch<CR>    " turns off highlighting from search
 
