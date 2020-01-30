@@ -113,17 +113,28 @@ vnoremap <C-c> "+y                          " copies from system X clipboard
 nnoremap <C-v> "+p
 nnoremap <C-d> yyp                          " duplicates line
 nnoremap <C-y> dd                           " deletes line
+nnoremap <C-b> <Esc><C-v>                   " visual block mode
+nnoremap <Tab> >>_                          " tab, shift+tab to move blocks
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
 nnoremap <C-q> :q!<CR>
 nnoremap <C-w> :wq!<CR>
+nnoremap <leader>l mzgg=G`z                 " reformat code
+
+execute "set <M-l>=\el"
+nnoremap <M-S-l> mzgg=G`z                   " reformat code
 
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :enew<CR>
 nnoremap <Leader>w :wq!<CR>
 nnoremap <Leader><space> :nohlsearch<CR>    " turns off highlighting from search
 
-" this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \E character.
+" this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \e character.
 " you can move lines/blocks up and down with alt-j/k.    https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
 execute "set <M-j>=\ej"
 nnoremap <M-j> j

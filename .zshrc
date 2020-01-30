@@ -105,12 +105,20 @@ export EDITOR=vim
 export PATH=/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
 export CLASSPATH=$CLASSPATH:~/IdeaProjects/Libraries/
 
+
 source $ZSH/oh-my-zsh.sh
 source /home/erik/.dotfiles/z.sh
 source /home/erik/.dotfiles/.aliases
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 setopt noextendedhistory
-
+export SAVEHIST=50000
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
