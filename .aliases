@@ -17,3 +17,5 @@ alias fgrep='fgrep --color=auto'
 # git
 alias gs='git status'
 alias difff='diff --color -rup'
+alias gco='git checkout'
+

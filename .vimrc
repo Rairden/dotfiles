@@ -111,7 +111,7 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <F5> :edit!<LF>                    " binds F5 to :edit! which force reloads the file w/out asking to save changes
 vnoremap <C-c> "+y                          " copies from system X clipboard
 nnoremap <C-v> "+p
-nnoremap <C-d> yyp                          " duplicates line
+nnoremap <S-d> yyp                          " duplicates line
 nnoremap <C-y> dd                           " deletes line
 nnoremap <C-b> <Esc><C-v>                   " visual block mode
 nnoremap <Tab> >>_                          " tab, shift+tab to move blocks
