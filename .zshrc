@@ -102,7 +102,7 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 export EDITOR=vim
-export PATH=/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
+export PATH=/home/erik/.dotfiles/:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
 export CLASSPATH=$CLASSPATH:~/IdeaProjects/Libraries/
 
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
@@ -124,4 +124,11 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export SAVEHIST=50000
 setopt noextendedhistory
 
-stty -ixon	# disable ctrl+s for any terminal emulator (konsole, alacritty)
+stty -ixon	# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
+
+# try out vim mode in zsh
+# bindkey -v
+# export KEYTIMEOUT=1
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
