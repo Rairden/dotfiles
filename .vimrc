@@ -92,17 +92,21 @@ nnoremap <C-h> <C-w><C-h>
 nmap <F2> :set invlist<CR>
 imap <F2> <Esc>:set invlist<CR>a
 nmap <F4> :NERDTreeToggle<CR>
-nnoremap <F5> :edit!<LF>                    " binds F5 to :edit! which force reloads the file w/out asking to save changes
+" binds F5 to :edit! which force reloads the file w/out asking to save changes
+nnoremap <F5> :edit!<LF>
 nnoremap <leader>r :vs<CR>
 nnoremap <leader>t :sp<CR>
 nnoremap <C-i> :bp<CR>
 nnoremap <C-o> :bn<CR>
-vnoremap <C-c> "+y                          " copies from system X clipboard
+vnoremap <C-c> "+y
 nnoremap <C-v> "+p
-nnoremap <S-d> yyp                          " duplicates line
-nnoremap <C-y> dd                           " deletes line
-nnoremap <C-b> <Esc><C-v>                   " visual block mode
-vnoremap <Tab> >>_                          " tab, shift+tab to move blocks
+inoremap <C-v> <Esc>"+p
+nnoremap <S-d> mzyyp`zj$
+nnoremap <C-y> dd
+" visual block mode
+nnoremap <C-b> <Esc><C-v>
+" tab, shift+tab to move blocks
+vnoremap <Tab> >>_
 vnoremap <S-Tab> <<_
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
@@ -111,16 +115,20 @@ inoremap <S-Tab> <C-D>
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
 nnoremap <C-q> :q!<CR>
-nnoremap <C-w> :wq!<CR>
+nnoremap <C-w> dvb
 
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>n :enew<CR>
 nnoremap <Leader>w :wq!<CR>
-nnoremap <Leader><space> :nohlsearch<CR>    " turns off highlighting from search
-nnoremap <leader>l mzgg=G`z                 " reformat code
-nnoremap <leader>e @e                       " run macro @e
-nnoremap <Leader>rg :Rg<space>
-nnoremap <Leader>f  :Filter<space>
+" turns off highlighting from search
+nnoremap <Leader><space> :nohlsearch<CR>
+" reformat code
+nnoremap <leader>l mzgg=G`z
+" run macro @e
+nnoremap <leader>e @e
+nnoremap <Leader>g :Rg<space>
+nnoremap <Leader>F :Filter<space>
+nnoremap <Leader>f :FZF<CR>
 
 " this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \e character.
 " you can move lines/blocks up and down with alt-j/k.    https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
@@ -139,8 +147,10 @@ vnoremap <M-k> :m '<-2<CR>gv=gv
 " vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'https://github.com/jremmen/vim-ripgrep.git'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+"Plug 'https://github.com/kien/ctrlp.vim.git'
 call plug#end()
 
 " CtrlP
@@ -168,4 +178,10 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 set timeoutlen=1000
 set ttimeoutlen=50
 set noswapfile
+set softtabstop=4
+set scrolloff=5
+let NERDTreeShowHidden=1
+" auto-reload files on modification
+set autoread 
+au CursorHold * checktime 
 

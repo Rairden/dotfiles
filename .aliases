@@ -13,6 +13,11 @@ alias hist="vim $HOME/.zsh_history"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias -g G='| grep'
+alias -g R='| rg'
+alias -g L='| less'
+alias -g V='| vim -'
+alias -g S='| subl'
 
 # git
 alias gs='git status'

@@ -576,8 +576,15 @@ colors:
   primary:
     background: '0x1e1e1e'
 
-background_opacity: 0.92
+background_opacity: 0.90
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   history: 10000
+
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: MesloLGS NF 
+    # Style can be specified to pick a specific face.
+    style: Regular

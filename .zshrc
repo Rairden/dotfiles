@@ -8,7 +8,7 @@ ZSH=/usr/share/oh-my-zsh/
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -104,6 +104,7 @@ fi
 export EDITOR=vim
 export PATH=/home/erik/.dotfiles/:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
 export CLASSPATH=$CLASSPATH:~/IdeaProjects/Libraries/
+export JAVA_HOME=/usr/lib/jvm/default
 
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
 
@@ -132,3 +133,16 @@ stty -ixon	# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacri
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# https://github.com/gotbletu/shownotes/blob/master/zsh_global_alias_expansion.md
+# When you use global alias like binding 'L' to '| less', then you can hit L<space> and it expands.
+globalias() {
+    if [[ $LBUFFER =~ '[A-Z0-9]+$' ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle self-insert
+}
+zle -N globalias
+bindkey " " globalias   # space key to expand globalalias
+
