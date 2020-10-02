@@ -20,7 +20,16 @@ alias -g V='| vim -'
 alias -g S='| subl'
 
 # git
-alias gs='git status'
 alias difff='diff --color -rup'
-alias gco='git checkout'
 
+# default oh-mh-zsh aliases I use a lot
+alias gms='git merge --squash'  # my own
+alias gs='git status'
+alias gco='git checkout'
+alias gst='git stash'
+alias grc='git reset --hard && git clean -f'
+alias grhh='git reset --hard'
+
+# misc
+alias vimrc='vim ~/.vimrc'
+alias zshrc='vim ~/.zshrc'

@@ -102,9 +102,11 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 export EDITOR=vim
-export PATH=/home/erik/.dotfiles/:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
-export CLASSPATH=$CLASSPATH:~/IdeaProjects/Libraries/
 export JAVA_HOME=/usr/lib/jvm/default
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export go=$GOPATH/src/code
+export PATH=/home/erik/.dotfiles/:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/home/erik/.local/bin:$GOBIN
 
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
 
@@ -113,6 +115,8 @@ source /home/erik/.dotfiles/z.sh
 source /home/erik/.dotfiles/.aliases
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
 
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
@@ -124,12 +128,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 export SAVEHIST=50000
 setopt noextendedhistory
-
-stty -ixon	# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
-
-# try out vim mode in zsh
-# bindkey -v
-# export KEYTIMEOUT=1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -145,4 +143,11 @@ globalias() {
 }
 zle -N globalias
 bindkey " " globalias   # space key to expand globalalias
+
+### experimental ##############################################################
+stty -ixon	            # disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
+export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
+
+# https://unix.stackexchange.com/a/167600
+PROMPT_EOL_MARK=''
 

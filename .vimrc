@@ -64,6 +64,10 @@ hi User6 ctermfg=231 ctermbg=160        " INSERT (red)
 hi User7 ctermfg=231 ctermbg=55         " VISUAL (purple)
 hi User8 ctermfg=231 ctermbg=208        " REPLACE (orange)
 
+" sets color for autocomplete popup menus
+hi Pmenu ctermbg=238
+hi PmenuSel ctermbg=242
+
 " my status bar
 set statusline=
 set statusline +=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
@@ -100,11 +104,12 @@ nnoremap <C-i> :bp<CR>
 nnoremap <C-o> :bn<CR>
 vnoremap <C-c> "+y
 nnoremap <C-v> "+p
-inoremap <C-v> <Esc>"+p
+inoremap <C-v> <Esc>"+pA
 nnoremap <S-d> mzyyp`zj$
 nnoremap <C-y> dd
 " visual block mode
 nnoremap <C-b> <Esc><C-v>
+
 " tab, shift+tab to move blocks
 vnoremap <Tab> >>_
 vnoremap <S-Tab> <<_
@@ -118,7 +123,7 @@ nnoremap <C-q> :q!<CR>
 nnoremap <C-w> dvb
 
 nnoremap <Leader>s :w<CR>
-nnoremap <Leader>n :enew<CR>
+"nnoremap <Leader>n :enew<CR>
 nnoremap <Leader>w :wq!<CR>
 " turns off highlighting from search
 nnoremap <Leader><space> :nohlsearch<CR>
@@ -129,6 +134,16 @@ nnoremap <leader>e @e
 nnoremap <Leader>g :Rg<space>
 nnoremap <Leader>F :Filter<space>
 nnoremap <Leader>f :FZF<CR>
+nnoremap <leader>v <Esc>q:
+" deletes all Javadoc comments
+nnoremap <leader>c :g/[/]\*\+\\|^\s\+\*/d<CR>
+" run go
+nnoremap <leader>m :GoRun %<CR>
+nnoremap <leader>q :bd<CR>
+
+" https://github.com/skywind3000/asyncrun.vim#asyncrun---run-shell-command
+nnoremap <leader>b <Esc>:AsyncRun -mode=term -pos=curwin go run .<CR><C-w><C-k>
+nnoremap <F10> <Esc>:AsyncRun -mode=term -pos=bottom -rows=10 -focus=0 go run .<CR>
 
 " this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \e character.
 " you can move lines/blocks up and down with alt-j/k.    https://vi.stackexchange.com/questions/2350/how-to-map-alt-key
@@ -148,9 +163,11 @@ vnoremap <M-k> :m '<-2<CR>gv=gv
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
 Plug 'https://github.com/jremmen/vim-ripgrep.git'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
-"Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'https://github.com/skywind3000/asyncrun.vim.git'
 call plug#end()
 
 " CtrlP
@@ -181,7 +198,4 @@ set noswapfile
 set softtabstop=4
 set scrolloff=5
 let NERDTreeShowHidden=1
-" auto-reload files on modification
-set autoread 
-au CursorHold * checktime 
 
