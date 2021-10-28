@@ -1,6 +1,6 @@
-# ls    -X: sort by type
-#       -F: append file type
-#       -l: use a long listing format
+# ls	-X: sort by type
+#		-F: append file type
+#		-l: use a long listing format
 
 alias ls='ls -XF --group-directories-first --color=auto'
 alias l='ls -lFX --group-directories-first --color=auto'
@@ -8,24 +8,31 @@ alias ll='ls -laX --group-directories-first --color=auto'
 
 alias c='clear'
 alias cp='cp -i'	# confirm before overwriting something
-alias histsubl="subl $HOME/.zsh_history"
-alias hist="vim $HOME/.zsh_history"
-alias grep='grep --color=auto'
+alias hist="vi $HOME/.zsh_history"
+alias grep='grep -r --exclude-dir={.git,.idea,out,test,build} --color=auto'
+alias rg='rg -i'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias -g G='| grep'
-alias -g R='| rg'
-alias -g L='| less'
-alias -g V='| vim -'
-alias -g S='| subl'
+alias diff='diff --color -rup'
 
-# git
-alias difff='diff --color -rup'
+shell=$(ps -p$$ -ocmd=)
+if [[ $shell =~ "zsh" ]]; then
+	alias -g G='| grep'
+	alias -g R='| rg'
+	alias -g L='| less'
+	alias -g V='| vim -'
+	alias -g S='| subl'
+	alias -g X='| xargs'
+	alias -g B='> /home/erik/.cache/tmp.log'
+fi
 
 # default oh-mh-zsh aliases I use a lot
-alias gms='git merge --squash'  # my own
+alias gms='git merge --squash'
 alias gs='git status'
+alias gd='git diff'
 alias gco='git checkout'
+alias gcd='git checkout dev'
+alias gcm='git checkout master'
 alias gst='git stash'
 alias grc='git reset --hard && git clean -f'
 alias grhh='git reset --hard'
@@ -33,3 +40,15 @@ alias grhh='git reset --hard'
 # misc
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
+alias tmuxrc='vim ~/.tmux.conf'
+alias aliases='vim ~/.dotfiles/.aliases'
+alias chrome='google-chrome-stable'
+alias pac="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+
+alias notes='code ~/Documents/VScode-Workspaces/notes.code-workspace'
+alias sc2='code ~/Documents/VScode-Workspaces/sc2.code-workspace'
+alias logs='vim /home/erik/.cache/tmp.log'
+alias blog='vim ~/Notes/tmp/blog.md'
+alias vi='\vim'
+alias vim='vim -c vnew'
+alias find='find . -type f -printf "%P\n"'

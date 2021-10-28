@@ -3,10 +3,12 @@
 	name = Rairden
 
 [color]
-    ui = auto
+	ui = auto
 
 [core]
-    excludesfile = /home/erik/.dotfiles/.gitignore_global2
-    symlinks = false
-    pager = "less -x1,5"
+	excludesfile = /home/erik/.dotfiles/gitignore/.gitignore_global
+	symlinks = false
+	pager = "less -x1,5"
 
+[init]
+	defaultBranch = "master"

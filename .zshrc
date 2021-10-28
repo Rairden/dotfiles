@@ -103,28 +103,31 @@ fi
 
 export EDITOR=vim
 export JAVA_HOME=/usr/lib/jvm/default
-export GOPATH=$HOME/go
+export CLASSPATH=.
+export GOPATH=/home/erik/go
 export GOBIN=$GOPATH/bin
-export go=$GOPATH/src/code
-export PATH=/home/erik/.dotfiles/:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/home/erik/.local/bin:$GOBIN
+# export GO111MODULE=on
+export go=$GOPATH/src
+export PSQL_EDITOR=/usr/bin/vim
+export PATH=/home/erik/.dotfiles:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/home/erik/.local/bin:$GOBIN
 
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
 
 source $ZSH/oh-my-zsh.sh
-source /home/erik/.dotfiles/z.sh
+source /home/erik/z.sh
 source /home/erik/.dotfiles/.aliases
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+# export LESS_TERMCAP_mb=$'\e[1;32m'
+# export LESS_TERMCAP_md=$'\e[1;32m'
+# export LESS_TERMCAP_me=$'\e[0m'
+# export LESS_TERMCAP_se=$'\e[0m'
+# export LESS_TERMCAP_so=$'\e[01;33m'
+# export LESS_TERMCAP_ue=$'\e[0m'
+# export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 export SAVEHIST=50000
 setopt noextendedhistory
@@ -135,19 +138,22 @@ setopt noextendedhistory
 # https://github.com/gotbletu/shownotes/blob/master/zsh_global_alias_expansion.md
 # When you use global alias like binding 'L' to '| less', then you can hit L<space> and it expands.
 globalias() {
-    if [[ $LBUFFER =~ '[A-Z0-9]+$' ]]; then
-        zle _expand_alias
-        zle expand-word
-    fi
-    zle self-insert
+	if [[ $LBUFFER =~ '[A-Z0-9]+$' ]]; then
+		zle _expand_alias
+		zle expand-word
+	fi
+	zle self-insert
 }
 zle -N globalias
 bindkey " " globalias   # space key to expand globalalias
 
 ### experimental ##############################################################
-stty -ixon	            # disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
+stty -ixon				# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
 # https://unix.stackexchange.com/a/167600
 PROMPT_EOL_MARK=''
 
+# export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'   # this is for anti-alias text for java apps. Or old jre7 apps.
+# export LESS="-x1,5"
+### end experimental ##########################################################
