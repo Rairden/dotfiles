@@ -71,7 +71,7 @@ $RECYCLE.BIN/
 # Ignore a few folders
 /scratch/
 /tmp*/
-*.txt
+*.txti
 
 # Kattis long input files
 Kattis-longInput/

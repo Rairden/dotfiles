@@ -157,7 +157,7 @@ nnoremap dd "_dd
 " run go
 nnoremap <leader>b :GoRun %<CR>
 " https://github.com/skywind3000/asyncrun.vim#asyncrun---run-shell-command
-nnoremap <leader>m <Esc>:AsyncRun -mode=term -pos=curwin go run .<CR><C-w><C-k>
+" nnoremap <leader>m <Esc>:AsyncRun -mode=term -pos=curwin go run .<CR><C-w><C-k>
 nnoremap <F10> <Esc>:AsyncRun -mode=term -pos=bottom -rows=10 -focus=0 go run .<CR>
 
 " this assigns Meta-j to konsole alt-j. In konsole the escape char is ^[ which konsole assigns to \e character.

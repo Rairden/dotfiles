@@ -109,7 +109,7 @@ export GOBIN=$GOPATH/bin
 # export GO111MODULE=on
 export go=$GOPATH/src
 export PSQL_EDITOR=/usr/bin/vim
-export PATH=/home/erik/.dotfiles:/home/erik/.scripts:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/home/erik/.local/bin:$GOBIN
+export PATH=/home/erik/.dotfiles:/home/erik/.scripts:/home/erik/.scripts/tmp:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/home/erik/.local/bin:$GOBIN
 
 # https://superuser.com/questions/613685/how-stop-zsh-from-eating-space-before-pipe-symbol
 
@@ -149,11 +149,12 @@ bindkey " " globalias   # space key to expand globalalias
 
 ### experimental ##############################################################
 stty -ixon				# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
-export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
+export TIMEFMT=$'\nreal\t%mE\nuser\t%mU\nsys\t%mS'
 
 # https://unix.stackexchange.com/a/167600
 PROMPT_EOL_MARK=''
 
 # export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'   # this is for anti-alias text for java apps. Or old jre7 apps.
+# export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'	# for Netbeans
 # export LESS="-x1,5"
 ### end experimental ##########################################################
