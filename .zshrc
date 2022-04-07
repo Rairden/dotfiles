@@ -103,7 +103,6 @@ fi
 
 export EDITOR=vim
 export JAVA_HOME=/usr/lib/jvm/default
-export CLASSPATH=.
 export GOPATH=/home/erik/go
 export GOBIN=$GOPATH/bin
 # export GO111MODULE=on
@@ -121,16 +120,25 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
-# export LESS_TERMCAP_mb=$'\e[1;32m'
-# export LESS_TERMCAP_md=$'\e[1;32m'
-# export LESS_TERMCAP_me=$'\e[0m'
-# export LESS_TERMCAP_se=$'\e[0m'
-# export LESS_TERMCAP_so=$'\e[01;33m'
-# export LESS_TERMCAP_ue=$'\e[0m'
-# export LESS_TERMCAP_us=$'\e[1;4;31m'
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 export SAVEHIST=50000
 setopt noextendedhistory
+# setopt HIST_FIND_NO_DUPS		# when searching for history entries in the line editor, do not display duplicates of a line previously found, even if the duplicates are not contiguous
+# setopt HIST_EXPIRE_DUPS_FIRST	# delete duplicates first when HISTFILE size exceeds HISTSIZE
+
+### fzf ########################################################################
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!{.git,venv}/*"'
+export FZF_DEFAULT_COMMAND='fd -t f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow"
+### end fzf ####################################################################
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -145,16 +153,19 @@ globalias() {
 	zle self-insert
 }
 zle -N globalias
-bindkey " " globalias   # space key to expand globalalias
+bindkey " " globalias		# space key to expand globalalias
+bindkey "^ " magic-space	# control-space to bypass completion
 
-### experimental ##############################################################
+### experimental ###############################################################
 stty -ixon				# disable ctrl+s (Suspend) for any terminal emulator (konsole, alacritty)
 export TIMEFMT=$'\nreal\t%mE\nuser\t%mU\nsys\t%mS'
 
 # https://unix.stackexchange.com/a/167600
-PROMPT_EOL_MARK=''
+# PROMPT_EOL_MARK=''
 
 # export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'   # this is for anti-alias text for java apps. Or old jre7 apps.
 # export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'	# for Netbeans
-# export LESS="-x1,5"
-### end experimental ##########################################################
+# export LESS="-x1,5"	# tab width of 4
+tabs -4
+export LESS="-R -j4"	# -R colors, -j for scrolloff (vertical padding)
+### end experimental ###########################################################

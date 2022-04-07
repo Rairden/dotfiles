@@ -2,17 +2,12 @@
 #		-F: append file type
 #		-l: use a long listing format
 
-alias ls='ls -1 -XF --group-directories-first --color=auto'
-alias l='ls -lFX --group-directories-first --color=auto'
-alias ll='ls -laX --group-directories-first --color=auto'
+alias ls='ls -1 -XF --group-directories-first --color'
+alias l='ls -lFX --group-directories-first --color'
+alias ll='ls -laX --group-directories-first --color'
 
 alias c='clear'
-alias cp='cp -i'	# confirm before overwriting something
 alias hist="vi $HOME/.zsh_history"
-alias grep='grep -r --exclude-dir={.git,.idea,out,test,build} --color=auto'
-alias rg='rg -i'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
 alias diff='diff --color -rup'
 
 shell=$(ps -p$$ -ocmd=)
@@ -20,9 +15,10 @@ if [[ $shell =~ "zsh" ]]; then
 	alias -g G='| grep'
 	alias -g R='| rg'
 	alias -g L='| less'
-	alias -g V='| vim -'
 	alias -g S='| subl'
 	alias -g X='| xargs'
+	alias -g C='| wc -l'
+	alias -g N='&> /dev/null'
 	alias -g B='> /home/erik/.cache/tmp.log'
 fi
 
@@ -39,6 +35,9 @@ alias gstl='git stash list'
 alias grc='git reset --hard && git clean -f'
 alias grhh='git reset --hard'
 alias gfs='git fsck'
+alias gb='git --no-pager branch'
+alias gba='git --no-pager branch -a'
+alias grt='cd "$(git rev-parse --show-toplevel)"'
 
 # misc
 alias vimrc='vim ~/.vimrc'
@@ -54,4 +53,3 @@ alias logs='vim /home/erik/.cache/tmp.log'
 alias blog='vim ~/Notes/tmp/blog.md'
 alias vi='\vim'
 alias vim='vim -c vnew'
-alias find='find . -type f -printf "%P\n"'

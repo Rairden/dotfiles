@@ -1,46 +1,58 @@
 #!/bin/bash
 
-# I place all my dotfiles ~/.dotfiles
+# I place all my dotfiles at ~/.dotfiles
+# Run this script as sudo
+# 	git clone https://gitlab.com/Rairden/dotfiles.git
+#	cd dotfiles && sudo ./install.sh
 
-dotfiles=/home/"$USER"/.dotfiles
+mklink() {
+	file=$1
+	cd /home/erik || exit 1
+	pwd
+	for file in "$@"; do
+		rm -f "$file"
+		ln -s "$dotfiles/$file" .
+		ls -la --color "$file" 2> /dev/null
+	done
 
-mv ../dotfiles ../.dotfiles
+	cd /root || exit 1
+	pwd
+	for file in "$@"; do
+		rm -f "$file"
+		ln -s "$dotfiles/$file" .
+		ls -la --color "$file" 2> /dev/null
+	done
 
-if [ ! -L ~/.gitconfig ]; then
-	ln -s "$dotfiles"/.gitconfig /home/"$USER"/.gitconfig
-	echo "Symlink created:	/home/$USER/.gitconfig"
+	ln -s /home/erik/.vim . 2> /dev/null
+	ls -la --color /root/.vim 2> /dev/null
+}
+
+installJumpAround() {
+	rm -f "$home"/z.sh
+	wget -P "$home" https://raw.githubusercontent.com/rupa/z/master/z.sh 2> /dev/null
+	chmod 755 "$home"/z.sh
+}
+
+if [ "$EUID" -ne 0 ]; then
+	echo "This script must be run as root. Use sudo $0 instead"
+	exit 1
 fi
 
-if [ ! -L ~/.vimrc ]; then
-	ln -s "$dotfiles"/.vimrc /home/"$USER"/.vimrc
-	echo "Symlink created:	/home/$USER/.vimrc"
+home=/home/erik
+dotfiles=$home/.dotfiles
+cd "$(git rev-parse --show-toplevel)" || exit 1
+installJumpAround
+
+if [ -d "$dotfiles" ]; then
+	read -p "$dotfiles directory already exists. Delete it? [y,Y] " reply
+	[[ ! $reply =~ [yY] ]] && echo "exiting" && exit 1
 fi
 
-if [ ! -L ~/.zshrc ]; then
-	ln -s "$dotfiles"/.zshrc /home/"$USER"/.zshrc
-	echo "Symlink created:	/home/$USER/.zshrc"
-fi
+echo -e "\nbacking up $dotfiles to /tmp"
+echo -e "[CMD] rsync -a $dotfiles /tmp &> /dev/null\n"
+rsync -a "$PWD" /tmp &> /dev/null
 
-if [ ! -L ~/.tmux.conf ]; then
-	ln -s "$dotfiles"/.tmux.conf /home/"$USER"/.tmux.conf
-	echo "Symlink created:	/home/$USER/.tmux.conf"
-fi
+rm -rf "$dotfiles"
+mv "$PWD" "$dotfiles"
 
-if [ ! -L /root/.vimrc ]; then
-	ln -s "$dotfiles"/.vimrc /root/.vimrc
-	echo "Symlink created:	/root/.vimrc"
-fi
-
-if [ ! -L /root/.zshrc ]; then
-	ln -s "$dotfiles"/.zshrc /root/.zshrc
-	echo "Symlink created:	/root/.zshrc"
-fi
-
-if [ ! -L /root/.tmux.conf ]; then
-	ln -s "$dotfiles"/.tmux.conf /root/.tmux.conf
-	echo "Symlink created:	/root/.tmux.conf"
-fi
-
-# todo: Fix all root folders above. It dumps to /root/home/.dotfiles
-#	root has missing vimrc colors. Make symlink; this fixed it as root ran in /root:
-#	ln -s /home/erik/.vim .
+mklink .bashrc .tmux.conf .gitconfig .vimrc .zshrc

@@ -102,7 +102,8 @@ nmap <F3> :set hls! <CR>
 nmap <F4> :NERDTreeToggle<CR>
 " binds F5 to :edit! which force reloads the file w/out asking to save changes
 nnoremap <F5> :edit!<CR>
-nnoremap <leader>r :vs<CR>
+" | windcmd p is to restore cursor pos
+nnoremap <leader>r :vnew \| wincmd p<CR>
 nnoremap <leader>t :sp<CR>
 nnoremap <C-i> :bp<CR>
 nnoremap <C-o> :bn<CR>
@@ -138,11 +139,12 @@ nnoremap <leader>l mzgg=G`z
 " run macro @e
 nnoremap <leader>e @e
 nnoremap <leader>g :Rg<space>
-nnoremap <leader>F :Filter<space>
+nnoremap <leader>F :Ripgrep<space>
+" nnoremap <leader>F :Filter<space>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>v <Esc>q:
 " deletes all Javadoc comments
-nnoremap <leader>c :g/[/]\*\+\\|^\s\+\*/d<CR>
+" nnoremap <leader>c :g/[/]\*\+\\|^\s\+\*/d<CR>
 nnoremap <leader>q :bp\|bd#<CR>
 " YouCompleteMe jump to defintion
 nnoremap <leader>j :YcmCompleter GoTo<CR>
@@ -152,7 +154,6 @@ imap <C-_> <Esc><plug>NERDCommenterToggle<CR>
 vmap <C-_> <plug>NERDCommenterToggle<CR>
 " fix dd so that deleting a line doesnt overwrite the most recent 0 reg
 nnoremap dd "_dd
-" ### END Erik's custom hotkeys
 
 " run go
 nnoremap <leader>b :GoRun %<CR>
@@ -174,6 +175,8 @@ inoremap <M-k> <Esc>:m .-2<CR>==gi
 vnoremap <M-j> :m '>+1<CR>gv=gv
 vnoremap <M-k> :m '<-2<CR>gv=gv
 
+" ### END custom hotkeys ###################################
+
 " vim-plug
 call plug#begin('~/.vim/plugged')
 " Plug 'https://github.com/ycm-core/YouCompleteMe.git'
@@ -183,8 +186,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'https://github.com/skywind3000/asyncrun.vim.git'
 Plug 'preservim/nerdcommenter'
-" Plug 'https://github.com/kien/ctrlp.vim.git'
-" Plug 'ayu-theme/ayu-vim'
 call plug#end()
 
 if executable('rg')
@@ -193,12 +194,19 @@ endif
 
 " this allows you to type ":Filter <search>" to search an entire file, and copy it to a new file (https://vim.fandom.com/wiki/Redirect_g_search_output)
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
+command! -nargs=? Ripgrep | new | 0r!rg <args> #
 
-" ### test settings ##################################
+" ### fzf ##################################################
+let $FZF_DEFAULT_COMMAND ='rg --files --ignore-case --hidden --glob "!{.git,venv}/*"'
+let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" ### test settings ########################################
 set timeoutlen=1000
 set ttimeoutlen=50
 set noswapfile
 set softtabstop=4
+" add vertical padding for scrolling
 set scrolloff=5
 let NERDTreeShowHidden=1
 
@@ -217,8 +225,6 @@ endfunc
 
 " this allows me to use help and it go 100% height. Use with ':H'
 command! -nargs=? -complete=help H help <args> | :exe "normal \<C-W>_"
-
 " disable autoformatting on save in vim-go plugin.
 let g:go_fmt_autosave = 0
-
 " ### END test settings ##################################

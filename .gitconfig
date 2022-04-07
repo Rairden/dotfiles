@@ -7,8 +7,7 @@
 
 [core]
 	excludesfile = /home/erik/.dotfiles/gitignore/.gitignore_global
-	symlinks = false
 	pager = "less -x1,5"
 
 [init]
-	defaultBranch = "master"
+	defaultBranch = "main"
